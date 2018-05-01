@@ -1,16 +1,16 @@
 ﻿namespace ServerlessParking.Models
 {
-    public class DetermineParkingResult
+    public class DetermineParkingOutcomeResult
     {
-        public DetermineParkingResult()
+        public DetermineParkingOutcomeResult()
         {
-            ClientResult = new ParkingClientResult();
+            ParkingClientResult = new ParkingClientResult();
         }
 
         public string ActivityFunction { get; set; }
 
         public object ActivityData { get; set; }
 
-        public ParkingClientResult ClientResult { get; set; }
+        public ParkingClientResult ParkingClientResult { get; set; }
     }
 }

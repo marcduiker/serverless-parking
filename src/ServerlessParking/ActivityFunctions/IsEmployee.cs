@@ -7,7 +7,7 @@ namespace ServerlessParking.ActivityFunctions
 {
     public static class IsEmployee
     {
-        [FunctionName("IsEmployee")]
+        [FunctionName(nameof(IsEmployee))]
         public static ActivityResult Run(
             [ActivityTrigger] DurableActivityContext activityContext,
             TraceWriter log)
@@ -32,10 +32,8 @@ namespace ServerlessParking.ActivityFunctions
 
         private static readonly Dictionary<string, string> LicensePlates = new Dictionary<string, string>
         {
-            { "ABC-111", "Marc"},
-            { "DEF-222", "Geert"}
+            { "ABC-111", "Grace"},
+            { "DEF-222", "Jane"}
         };
     }
-
-
 }

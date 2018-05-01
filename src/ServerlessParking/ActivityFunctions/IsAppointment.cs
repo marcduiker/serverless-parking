@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using ServerlessParking.Models;
@@ -8,7 +7,7 @@ namespace ServerlessParking.ActivityFunctions
 {
     public static class IsAppointment
     {
-        [FunctionName("IsAppointment")]
+        [FunctionName(nameof(IsAppointment))]
         public static ActivityResult Run(
             [ActivityTrigger] DurableActivityContext activityContext,
             TraceWriter log)
@@ -33,10 +32,8 @@ namespace ServerlessParking.ActivityFunctions
 
         private static readonly Dictionary<string, string> Appointments = new Dictionary<string, string>
         {
-            { "XYZ-999", "Spiderman"},
-            { "XXX-666", "Deadpool"}
+            { "XYZ-999", "Margareth"},
+            { "XXX-666", "Ada"}
         };
     }
-
-
 }

@@ -1,23 +1,23 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
+using ServerlessParking.ActivityFunctions;
 using ServerlessParking.Models;
 
 namespace ServerlessParking
 {
     public static class ParkingOrchestration
     {
-        [FunctionName("ParkingOrchestration")]
+        [FunctionName(nameof(ParkingOrchestration))]
         public static async Task<ParkingClientResult> RunOrchestrator(
             [OrchestrationTrigger] DurableOrchestrationContext orchestrationContext)
         {
             var licensePlate = orchestrationContext.GetInput<string>();
 
-            var isParkingSpotAvailableActivity = orchestrationContext.CallActivityAsync<ActivityResult>("IsParkingSpotAvailable");
-            var isEmployeeActivity = orchestrationContext.CallActivityAsync<ActivityResult>("IsEmployee", licensePlate);
-            var isAppointmentActivity = orchestrationContext.CallActivityAsync<ActivityResult>("IsAppointment", licensePlate);
+            var isParkingSpotAvailableActivity = orchestrationContext.CallActivityAsync<ActivityResult>(nameof(IsParkingSpotAvailable), null);
+            var isEmployeeActivity = orchestrationContext.CallActivityAsync<ActivityResult>(nameof(IsEmployee), licensePlate);
+            var isAppointmentActivity = orchestrationContext.CallActivityAsync<ActivityResult>(nameof(IsAppointment), licensePlate);
 
-            // Replace "hello" with the name of your Durable Activity Function.
             var activities = new List<Task<ActivityResult>>
             {
                 isParkingSpotAvailableActivity,
@@ -34,12 +34,12 @@ namespace ServerlessParking
                 IsAppointment = isAppointmentActivity.Result
             };
 
-            var determineParkingResult = await orchestrationContext.CallActivityAsync<DetermineParkingResult>(
-                "DetermineParkingResponse",
+            var determineParkingResult = await orchestrationContext.CallActivityAsync<DetermineParkingOutcomeResult>(
+                nameof(DetermineParkingOutcome),
                 determineParkingInput);
 
 
-            return determineParkingResult.ClientResult;
+            return determineParkingResult.ParkingClientResult;
         }
     }
 }

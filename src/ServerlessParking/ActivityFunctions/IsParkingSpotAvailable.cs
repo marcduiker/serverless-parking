@@ -8,7 +8,7 @@ namespace ServerlessParking.ActivityFunctions
 {
     public static class IsParkingSpotAvailable
     {
-        [FunctionName("IsParkingSpotAvailable")]
+        [FunctionName(nameof(IsParkingSpotAvailable))]
         public static ActivityResult Run(
             [ActivityTrigger] DurableActivityContext activityContext,
             TraceWriter log)
@@ -38,6 +38,4 @@ namespace ServerlessParking.ActivityFunctions
             { 3, true}
         };
     }
-
-
 }

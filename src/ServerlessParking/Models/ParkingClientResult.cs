@@ -4,6 +4,6 @@
     {
         public string Message { get; set; }
 
-        public bool Result { get; set; }
+        public bool GateOpen { get; set; }
     }
 }
