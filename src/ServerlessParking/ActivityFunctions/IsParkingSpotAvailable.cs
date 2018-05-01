@@ -10,7 +10,7 @@ namespace ServerlessParking.ActivityFunctions
     {
         [FunctionName(nameof(IsParkingSpotAvailable))]
         public static ActivityResult Run(
-            [ActivityTrigger] DurableActivityContext activityContext,
+            [ActivityTrigger] string licensePlate,
             TraceWriter log)
         {
             log.Info($"Checking parking availability.");

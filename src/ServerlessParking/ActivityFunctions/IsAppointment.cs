@@ -9,10 +9,9 @@ namespace ServerlessParking.ActivityFunctions
     {
         [FunctionName(nameof(IsAppointment))]
         public static ActivityResult Run(
-            [ActivityTrigger] DurableActivityContext activityContext,
+            [ActivityTrigger] string licensePlate,
             TraceWriter log)
         {
-            string licensePlate = activityContext.GetInput<string>();
             log.Info($"Checking license plate {licensePlate}.");
 
             if (Appointments.TryGetValue(licensePlate, out string appointmentName))

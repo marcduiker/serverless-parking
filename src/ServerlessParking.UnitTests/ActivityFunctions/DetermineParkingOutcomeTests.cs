@@ -18,7 +18,7 @@ namespace ServerlessParking.UnitTests.ActivityFunctions
             var fakeTraceWriter = A.Fake<TraceWriter>();
 
             // Act
-            DetermineParkingOutcomeResult result = DetermineParkingOutcome.DoWork(input, fakeTraceWriter);
+            DetermineParkingOutcomeResult result = DetermineParkingOutcome.Run(input, fakeTraceWriter);
 
             // Assert
             result.ParkingClientResult.GateOpen.Should().Be(false);
@@ -33,7 +33,7 @@ namespace ServerlessParking.UnitTests.ActivityFunctions
             var fakeTraceWriter = A.Fake<TraceWriter>();
 
             // Act
-            DetermineParkingOutcomeResult result = DetermineParkingOutcome.DoWork(input, fakeTraceWriter);
+            DetermineParkingOutcomeResult result = DetermineParkingOutcome.Run(input, fakeTraceWriter);
 
             // Assert
             result.ParkingClientResult.GateOpen.Should().Be(true);
@@ -48,7 +48,7 @@ namespace ServerlessParking.UnitTests.ActivityFunctions
             var fakeTraceWriter = A.Fake<TraceWriter>();
 
             // Act
-            DetermineParkingOutcomeResult result = DetermineParkingOutcome.DoWork(input, fakeTraceWriter);
+            DetermineParkingOutcomeResult result = DetermineParkingOutcome.Run(input, fakeTraceWriter);
 
             // Assert
             result.ParkingClientResult.GateOpen.Should().Be(true);
@@ -63,7 +63,7 @@ namespace ServerlessParking.UnitTests.ActivityFunctions
             var fakeTraceWriter = A.Fake<TraceWriter>();
 
             // Act
-            DetermineParkingOutcomeResult result = DetermineParkingOutcome.DoWork(input, fakeTraceWriter);
+            DetermineParkingOutcomeResult result = DetermineParkingOutcome.Run(input, fakeTraceWriter);
 
             // Assert
             result.ParkingClientResult.GateOpen.Should().Be(false);

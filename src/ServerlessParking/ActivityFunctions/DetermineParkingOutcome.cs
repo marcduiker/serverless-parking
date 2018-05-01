@@ -8,16 +8,7 @@ namespace ServerlessParking.ActivityFunctions
     {
         [FunctionName(nameof(DetermineParkingOutcome))]
         public static DetermineParkingOutcomeResult Run(
-            [ActivityTrigger] DurableActivityContext activityContext,
-            TraceWriter log)
-        {
-            var parkingInput = activityContext.GetInput<DetermineParkingInput>();
-
-            return DoWork(parkingInput, log);
-        }
-
-        public static DetermineParkingOutcomeResult DoWork(
-            DetermineParkingInput parkingInput,
+            [ActivityTrigger] DetermineParkingInput parkingInput,
             TraceWriter log)
         {
             log.Info($"Determining parking response for {parkingInput.LicensePlate}.");

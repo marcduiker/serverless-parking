@@ -8,7 +8,7 @@ namespace ServerlessParking
 {
     public static class OrchestrationStarter
     {
-        [FunctionName("OrchestrationStarter")]
+        [FunctionName(nameof(OrchestrationStarter))]
         public static async Task<HttpResponseMessage> HttpStart(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "orchestration/{functionName}")]HttpRequestMessage req,
             [OrchestrationClient]DurableOrchestrationClient orchestrationClient,
