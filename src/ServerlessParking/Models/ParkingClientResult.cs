@@ -1,6 +1,6 @@
 ﻿namespace ServerlessParking.Models
 {
-    public class ParkingClientResult
+    public sealed class ParkingClientResult
     {
         public string Message { get; set; }
 

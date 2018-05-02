@@ -1,6 +1,6 @@
 ﻿namespace ServerlessParking.Models
 {
-    public class DetermineParkingOutcomeResult
+    public sealed class DetermineParkingOutcomeResult
     {
         public DetermineParkingOutcomeResult()
         {

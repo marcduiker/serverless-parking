@@ -32,8 +32,12 @@ namespace ServerlessParking.ActivityFunctions
                     // Car is guest with an appointment and there is no parking spot.
                     // Send a message to the reception to help the guest.
                     // Respond to client that there is no parking space and reception is informed.
-                    functionResult.ActivityFunction = "SendMessageToReception";
-                    functionResult.ActivityData = $"Guest {parkingInput.IsAppointment.Name} has arrived but there is no parking spot.";
+                    functionResult.ActivityFunction = nameof(SendMessage);
+                    functionResult.ActivityData = new SendMessageInput
+                    {
+                        Recipient = "reception",
+                        Message = $"Guest {parkingInput.IsAppointment.Name} has arrived but there is no parking spot."
+                    };
                     functionResult.ParkingClientResult.Message = $"Welcome {parkingInput.IsAppointment.Name}, there is currently no parking spot available but we've contacted the reception to help you out.";
                 }
                 else if (!parkingInput.IsAppointment.Result && parkingInput.IsEmployee.Result)
@@ -51,8 +55,12 @@ namespace ServerlessParking.ActivityFunctions
                     // Car is guest with appointment and there is a parking spot.
                     // Send a message to reception that a guest has arrived.
                     // Respond to client that there is a parking spot.
-                    functionResult.ActivityFunction = "SendMessageToReception";
-                    functionResult.ActivityData = $"Guest {parkingInput.IsAppointment.Name} has arrived.";
+                    functionResult.ActivityFunction = nameof(SendMessage);
+                    functionResult.ActivityData = new SendMessageInput
+                    {
+                        Recipient = "reception",
+                        Message = $"Guest {parkingInput.IsAppointment.Name} has arrived."
+                    };
                     functionResult.ParkingClientResult.Message = $"Welcome {parkingInput.IsAppointment.Name}, you can park at spot {parkingInput.IsParkingSpotAvailable.Name}.";
                 }
                 else if (!parkingInput.IsAppointment.Result && parkingInput.IsEmployee.Result)

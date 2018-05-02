@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using ServerlessParking.ActivityFunctions;
 using ServerlessParking.Models;
+using ServerlessParking.Storage;
 
 namespace ServerlessParking
 {
@@ -10,13 +11,13 @@ namespace ServerlessParking
     {
         [FunctionName(nameof(ParkingOrchestration))]
         public static async Task<ParkingClientResult> RunOrchestrator(
-            [OrchestrationTrigger] DurableOrchestrationContext orchestrationContext)
+            [OrchestrationTrigger] DurableOrchestrationContextBase orchestrationContext)
         {
             var licensePlate = orchestrationContext.GetInput<string>();
 
             var isParkingSpotAvailableActivity = orchestrationContext.CallActivityAsync<ActivityResult>(nameof(IsParkingSpotAvailable), null);
             var isEmployeeActivity = orchestrationContext.CallActivityAsync<ActivityResult>(nameof(IsEmployee), licensePlate);
-            var isAppointmentActivity = orchestrationContext.CallActivityAsync<ActivityResult>(nameof(IsAppointment), licensePlate);
+            var isAppointmentActivity = orchestrationContext.CallActivityAsync<ActivityResult>(nameof(IsVisitor), licensePlate);
 
             var activities = new List<Task<ActivityResult>>
             {

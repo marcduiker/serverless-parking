@@ -1,6 +1,6 @@
 ﻿namespace ServerlessParking.Models
 {
-    public class DetermineParkingInput
+    public sealed class DetermineParkingInput
     {
         public ActivityResult IsAppointment { get; set; }
 

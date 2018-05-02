@@ -1,6 +1,6 @@
 ﻿namespace ServerlessParking.Models
 {
-    public class ActivityResult
+    public sealed class ActivityResult
     {
         public string Name { get; set; }
 
