@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
 using FakeItEasy;
 using FluentAssertions;
-using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Extensions.Logging;
 using ServerlessParking.ActivityFunctions;
 using ServerlessParking.Storage;
 using ServerlessParking.Storage.Entities;
@@ -20,10 +20,10 @@ namespace ServerlessParking.UnitTests.ActivityFunctions
             // Arrange
             string licensePlate = _fixture.Create<string>();
             IsEmployee.ParkingStorageClient = GetFakeParkingStorageWhichReturnsAnEmployee(licensePlate);
-            var fakeTraceWriter = A.Fake<TraceWriter>();
+            var fakeLogger = A.Fake<ILogger>();
 
             // Act
-            var task = IsEmployee.Run(licensePlate, fakeTraceWriter);
+            var task = IsEmployee.Run(licensePlate, fakeLogger);
 
             // Assert
             task.Result.Result.Should().Be(true);
@@ -36,10 +36,10 @@ namespace ServerlessParking.UnitTests.ActivityFunctions
             // Arrange
             string licensePlate = _fixture.Create<string>();
             IsEmployee.ParkingStorageClient = GetFakeParkingStorageWhichReturnsANullEmployee();
-            var fakeTraceWriter = A.Fake<TraceWriter>();
+            var fakeLogger = A.Fake<ILogger>();
 
             // Act
-            var task = IsEmployee.Run(licensePlate, fakeTraceWriter);
+            var task = IsEmployee.Run(licensePlate, fakeLogger);
 
             // Assert
             task.Result.Result.Should().Be(false);

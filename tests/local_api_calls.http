@@ -6,7 +6,7 @@ Content-Type: application/json
 "{{licensePlate}}"
 
 ### Local Get Status
-@instance = f1205f2db6994994bacd5e20239019ce
+@instance = b5338634a71647c890290179c8585e84
 @code = 3bpVhOisFoBLgaw62vAJFbd2l2ubpqPZKiAgwzzUcBxf9r2fs1baxA==
 GET http://localhost:7071/runtime/webhooks/DurableTaskExtension/instances/{{instance}}
     ?taskHub=DurableFunctionsHub&connection=Storage

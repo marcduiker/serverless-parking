@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using ServerlessParking.ActivityFunctions;
 using ServerlessParking.Models;
-using ServerlessParking.Storage;
 
 namespace ServerlessParking
 {

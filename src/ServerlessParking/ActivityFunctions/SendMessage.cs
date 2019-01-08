@@ -1,5 +1,6 @@
 ﻿using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Extensions.Logging;
 using ServerlessParking.Models;
 
 namespace ServerlessParking.ActivityFunctions
@@ -9,9 +10,9 @@ namespace ServerlessParking.ActivityFunctions
         [FunctionName(nameof(SendMessage))]
         public static void Run(
             [ActivityTrigger] SendMessageInput input,
-            TraceWriter log)
+            ILogger log)
         {
-            log.Info($"Send message to {input.Recipient}.");
+            log.LogInformation($"Send message to {input.Recipient}.");
 
             // Do a fire & forget message to the recipient
         }

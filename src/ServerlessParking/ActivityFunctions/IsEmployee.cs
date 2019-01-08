@@ -5,6 +5,7 @@ using ServerlessParking.Storage;
 using ServerlessParking.Storage.Entities;
 using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace ServerlessParking.ActivityFunctions
 {
@@ -20,9 +21,9 @@ namespace ServerlessParking.ActivityFunctions
         [FunctionName(nameof(IsEmployee))]
         public static async Task<ActivityResult> Run(
             [ActivityTrigger] string licensePlate,
-            TraceWriter log)
+            ILogger log)
         {
-            log.Info($"Checking employee registration for license plate {licensePlate}.");
+            log.LogInformation($"Checking employee registration for license plate {licensePlate}.");
 
             ActivityResult activityResult = new ActivityResult { Result = false };
             try
@@ -39,7 +40,7 @@ namespace ServerlessParking.ActivityFunctions
             }
             catch (Exception e)
             {
-                log.Error(e.Message, e);
+                log.LogError(e.Message, e);
             }
 
             return activityResult;

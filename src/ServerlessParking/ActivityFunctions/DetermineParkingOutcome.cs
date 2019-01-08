@@ -1,5 +1,6 @@
 ﻿using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Extensions.Logging;
 using ServerlessParking.Models;
 
 namespace ServerlessParking.ActivityFunctions
@@ -9,9 +10,9 @@ namespace ServerlessParking.ActivityFunctions
         [FunctionName(nameof(DetermineParkingOutcome))]
         public static DetermineParkingOutcomeResult Run(
             [ActivityTrigger] DetermineParkingInput parkingInput,
-            TraceWriter log)
+            ILogger log)
         {
-            log.Info($"Determining parking response for {parkingInput.LicensePlate}.");
+            log.LogInformation($"Determining parking response for {parkingInput.LicensePlate}.");
             var functionResult = new DetermineParkingOutcomeResult();
 
             if (!parkingInput.IsAppointment.Result && !parkingInput.IsEmployee.Result)

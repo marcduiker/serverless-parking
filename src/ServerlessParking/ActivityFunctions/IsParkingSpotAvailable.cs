@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Extensions.Logging;
 using ServerlessParking.Models;
 
 namespace ServerlessParking.ActivityFunctions
@@ -11,9 +12,9 @@ namespace ServerlessParking.ActivityFunctions
         [FunctionName(nameof(IsParkingSpotAvailable))]
         public static ActivityResult Run(
             [ActivityTrigger] string licensePlate,
-            TraceWriter log)
+            ILogger log)
         {
-            log.Info($"Checking parking availability.");
+            log.LogInformation($"Checking parking availability.");
 
             if (ParkingSpotsWithAvailability.ContainsValue(true))
             {

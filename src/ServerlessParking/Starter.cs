@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Extensions.Logging;
 
 namespace ServerlessParking
 {
@@ -13,14 +14,14 @@ namespace ServerlessParking
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "orchestration/{functionName}")]HttpRequestMessage req,
             [OrchestrationClient]DurableOrchestrationClient orchestrationClient,
             string functionName,
-            TraceWriter log)
+            ILogger log)
         {
             dynamic functionData = await req.Content.ReadAsAsync<object>();
             string instanceId = await orchestrationClient.StartNewAsync(functionName, functionData);
 
-            log.Info($"Started orchestration with ID = '{instanceId}'.");
+            log.LogInformation($"Started orchestration with ID = '{instanceId}'.");
 
-            return orchestrationClient.CreateCheckStatusResponse(req, instanceId);
+            return await orchestrationClient.WaitForCompletionOrCreateCheckStatusResponseAsync(req, instanceId);
         }
     }
 }

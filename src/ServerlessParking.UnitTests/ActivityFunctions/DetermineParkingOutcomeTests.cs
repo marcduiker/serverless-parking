@@ -1,6 +1,6 @@
 using FakeItEasy;
 using FluentAssertions;
-using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Extensions.Logging;
 using ServerlessParking.ActivityFunctions;
 using ServerlessParking.Models;
 using Xunit;
@@ -15,10 +15,10 @@ namespace ServerlessParking.UnitTests.ActivityFunctions
         {
             // Arrange
             var input = GetInputForCarIsNeitherAppointmentOrEmployee();
-            var fakeTraceWriter = A.Fake<TraceWriter>();
+            var fakeLogger = A.Fake<ILogger>();
 
             // Act
-            DetermineParkingOutcomeResult result = DetermineParkingOutcome.Run(input, fakeTraceWriter);
+            DetermineParkingOutcomeResult result = DetermineParkingOutcome.Run(input, fakeLogger);
 
             // Assert
             result.ParkingClientResult.GateOpen.Should().Be(false);
@@ -30,10 +30,10 @@ namespace ServerlessParking.UnitTests.ActivityFunctions
         {
             // Arrange
             var input = GetInputForCarIsAppointmentAndSpaceIsAvailable();
-            var fakeTraceWriter = A.Fake<TraceWriter>();
+            var fakeLogger = A.Fake<ILogger>();
 
             // Act
-            DetermineParkingOutcomeResult result = DetermineParkingOutcome.Run(input, fakeTraceWriter);
+            DetermineParkingOutcomeResult result = DetermineParkingOutcome.Run(input, fakeLogger);
 
             // Assert
             result.ParkingClientResult.GateOpen.Should().Be(true);
@@ -45,10 +45,10 @@ namespace ServerlessParking.UnitTests.ActivityFunctions
         {
             // Arrange
             var input = GetInputForCarIsEmployeeAndSpaceIsAvailable();
-            var fakeTraceWriter = A.Fake<TraceWriter>();
+            var fakeLogger = A.Fake<ILogger>();
 
             // Act
-            DetermineParkingOutcomeResult result = DetermineParkingOutcome.Run(input, fakeTraceWriter);
+            DetermineParkingOutcomeResult result = DetermineParkingOutcome.Run(input, fakeLogger);
 
             // Assert
             result.ParkingClientResult.GateOpen.Should().Be(true);
@@ -60,10 +60,10 @@ namespace ServerlessParking.UnitTests.ActivityFunctions
         {
             // Arrange
             var input = GetInputForCarIsNeitherEmployeeOrAppointmentAndSpaceIsAvailable();
-            var fakeTraceWriter = A.Fake<TraceWriter>();
+            var fakeLogger = A.Fake<ILogger>();
 
             // Act
-            DetermineParkingOutcomeResult result = DetermineParkingOutcome.Run(input, fakeTraceWriter);
+            DetermineParkingOutcomeResult result = DetermineParkingOutcome.Run(input, fakeLogger);
 
             // Assert
             result.ParkingClientResult.GateOpen.Should().Be(false);

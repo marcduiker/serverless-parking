@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Extensions.Logging;
 using ServerlessParking.Models;
 using ServerlessParking.Storage;
 using ServerlessParking.Storage.Entities;
@@ -20,9 +21,9 @@ namespace ServerlessParking.ActivityFunctions
         [FunctionName(nameof(IsVisitor))]
         public static async Task<ActivityResult> Run(
             [ActivityTrigger] string licensePlate,
-            TraceWriter log)
+            ILogger log)
         {
-            log.Info($"Checking visitor registration for license plate {licensePlate}.");
+            log.LogInformation($"Checking visitor registration for license plate {licensePlate}.");
 
             ActivityResult activityResult = new ActivityResult { Result = false };
             try
@@ -39,7 +40,7 @@ namespace ServerlessParking.ActivityFunctions
             }
             catch (Exception e)
             {
-                log.Error(e.Message, e);
+                log.LogError(e.Message, e);
             }
 
             return activityResult;
