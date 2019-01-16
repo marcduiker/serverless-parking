@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="2.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ServelessParking.Domain\ServelessParking.Domain.csproj" />
+    <ProjectReference Include="..\ServerlessParking.Interfaces\ServerlessParking.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>

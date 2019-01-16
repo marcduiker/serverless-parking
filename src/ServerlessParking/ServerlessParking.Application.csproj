@@ -8,6 +8,11 @@
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.24" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ServelessParking.Domain\ServelessParking.Domain.csproj" />
+    <ProjectReference Include="..\ServerlessParking.Interfaces\ServerlessParking.Interfaces.csproj" />
+    <ProjectReference Include="..\ServerlessParking.Repositories\ServerlessParking.Repositories.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="host.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

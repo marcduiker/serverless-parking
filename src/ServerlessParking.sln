@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2011
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerlessParking", "ServerlessParking\ServerlessParking.csproj", "{9863E7FC-414E-4EF5-8D9E-B9020D9692E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerlessParking.Application", "ServerlessParking\ServerlessParking.Application.csproj", "{9863E7FC-414E-4EF5-8D9E-B9020D9692E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerlessParking.UnitTests", "ServerlessParking.UnitTests\ServerlessParking.UnitTests.csproj", "{46414FD6-CF5F-4F0D-AE1A-68C85FF189DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerlessParking.UnitTests", "ServerlessParking.UnitTests\ServerlessParking.UnitTests.csproj", "{46414FD6-CF5F-4F0D-AE1A-68C85FF189DE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServelessParking.Domain", "ServelessParking.Domain\ServelessParking.Domain.csproj", "{BEAC3FB5-C844-48FE-8969-6B6147E2A202}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerlessParking.Repositories", "ServerlessParking.Repositories\ServerlessParking.Repositories.csproj", "{9C61E01A-59E2-4C93-8004-6590E2ADFCA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerlessParking.Interfaces", "ServerlessParking.Interfaces\ServerlessParking.Interfaces.csproj", "{D785A459-FBBF-4CED-A22C-23C91F536AEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{46414FD6-CF5F-4F0D-AE1A-68C85FF189DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46414FD6-CF5F-4F0D-AE1A-68C85FF189DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46414FD6-CF5F-4F0D-AE1A-68C85FF189DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEAC3FB5-C844-48FE-8969-6B6147E2A202}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEAC3FB5-C844-48FE-8969-6B6147E2A202}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEAC3FB5-C844-48FE-8969-6B6147E2A202}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEAC3FB5-C844-48FE-8969-6B6147E2A202}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C61E01A-59E2-4C93-8004-6590E2ADFCA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C61E01A-59E2-4C93-8004-6590E2ADFCA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C61E01A-59E2-4C93-8004-6590E2ADFCA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C61E01A-59E2-4C93-8004-6590E2ADFCA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D785A459-FBBF-4CED-A22C-23C91F536AEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D785A459-FBBF-4CED-A22C-23C91F536AEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D785A459-FBBF-4CED-A22C-23C91F536AEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D785A459-FBBF-4CED-A22C-23C91F536AEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
