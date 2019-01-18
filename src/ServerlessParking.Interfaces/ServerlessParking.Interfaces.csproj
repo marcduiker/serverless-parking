@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ServelessParking.Domain\ServelessParking.Domain.csproj" />
+    <ProjectReference Include="..\ServelessParking.Domain\ServerlessParking.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,45 +1,54 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
-using ServerlessParking.ActivityFunctions;
-using ServerlessParking.Models;
+using ServerlessParking.Application.Appointment;
+using ServerlessParking.Application.Employee;
+using ServerlessParking.Application.Gate;
+using ServerlessParking.Application.LicensePlate;
+using ServerlessParking.Application.Models;
+using ServerlessParking.Domain;
 
-namespace ServerlessParking
+namespace ServerlessParking.Application
 {
     public static class ParkingOrchestration
     {
         [FunctionName(nameof(ParkingOrchestration))]
-        public static async Task<ParkingClientResult> RunOrchestrator(
-            [OrchestrationTrigger] DurableOrchestrationContextBase orchestrationContext)
+        public static async Task<ParkingOrchestrationResponse> RunOrchestrator(
+            [OrchestrationTrigger] DurableOrchestrationContextBase context)
         {
-            var licensePlate = orchestrationContext.GetInput<string>();
+            var request = context.GetInput<ParkingOrchestrationRequest>();
 
-            var isParkingSpotAvailableActivity = orchestrationContext.CallActivityAsync<ActivityResult>(nameof(IsParkingSpotAvailable), null);
-            var isEmployeeActivity = orchestrationContext.CallActivityAsync<ActivityResult>(nameof(IsEmployee), licensePlate);
-            var isAppointmentActivity = orchestrationContext.CallActivityAsync<ActivityResult>(nameof(IsVisitor), licensePlate);
+            var licensePlateResult = await context.CallActivityAsync<Domain.LicensePlate>(nameof(GetLicensePlate), request.LicensePlateNumber);
 
-            var activities = new List<Task<ActivityResult>>
+            Task<ConfirmParkingResponse> confirmTask;
+            var confirmParkingRequest = new ConfirmParkingRequest(request.ParkingGarageName, licensePlateResult);
+
+            switch (licensePlateResult.Type)
             {
-                isParkingSpotAvailableActivity,
-                isEmployeeActivity,
-                isAppointmentActivity
-            };
+                case LicensePlateType.Appointment:
+                    confirmTask = context.CallActivityAsync<ConfirmParkingResponse>(nameof(ConfirmParkingForAppointment), confirmParkingRequest);
+                    break;
+                case LicensePlateType.Employee:
+                    confirmTask = context.CallActivityAsync<ConfirmParkingResponse>(nameof(ConfirmParkingForEmployee), confirmParkingRequest);
+                    break;
+                default:
+                    var unknownLicencePlateResponse = new ConfirmParkingResponse(request.ParkingGarageName, false);
+                    confirmTask = Task.FromResult(unknownLicencePlateResponse);
+                    break;
+            }
 
-            await Task.WhenAll(activities);
-            
-            var determineParkingInput = new DetermineParkingInput
+            var parkingConfirmationResponse = await confirmTask;
+            if (parkingConfirmationResponse.IsSuccess)
             {
-                IsParkingSpotAvailable = isParkingSpotAvailableActivity.Result,
-                IsEmployee = isEmployeeActivity.Result,
-                IsAppointment = isAppointmentActivity.Result
-            };
+                await context.CallActivityAsync<string>(nameof(OpenGate), confirmParkingRequest);
+            }
+            else
+            {
+                
+            }
 
-            var determineParkingResult = await orchestrationContext.CallActivityAsync<DetermineParkingOutcomeResult>(
-                nameof(DetermineParkingOutcome),
-                determineParkingInput);
+            var parkingOrchestrationResponse = new ParkingOrchestrationResponse();
 
-
-            return determineParkingResult.ParkingClientResult;
+            return parkingOrchestrationResponse;
         }
     }
 }

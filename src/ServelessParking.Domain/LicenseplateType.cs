@@ -1,6 +1,6 @@
-﻿namespace ServelessParking.Domain
+﻿namespace ServerlessParking.Domain
 {
-    public enum LicenseplateType
+    public enum LicensePlateType
     {
         Unknown,
         Employee,

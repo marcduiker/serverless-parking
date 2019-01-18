@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace ServelessParking.Domain
+namespace ServerlessParking.Domain
 {
     public class ParkingSpace
     {

@@ -1,13 +1,13 @@
-﻿using ServelessParking.Domain;
+﻿using ServerlessParking.Domain;
 
 namespace ServerlessParking.Interfaces
 {
     public interface ILicenplateRepository
     {
-        Licenseplate FindByNumber(string number);
+        LicensePlate FindByNumber(string number);
 
-        void Add(Licenseplate licenseplate);
+        void Add(LicensePlate licensePlate);
 
-        void Remove(Licenseplate licenplate);
+        void Remove(LicensePlate licenplate);
     }
 }

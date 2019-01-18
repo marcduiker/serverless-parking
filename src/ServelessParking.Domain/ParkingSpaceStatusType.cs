@@ -1,4 +1,4 @@
-﻿namespace ServelessParking.Domain
+﻿namespace ServerlessParking.Domain
 {
     public enum ParkingSpaceStatusType
     {

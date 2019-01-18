@@ -1,16 +1,17 @@
 ﻿using System;
-using ServelessParking.Domain;
+using System.Threading.Tasks;
+using ServerlessParking.Domain;
 
 namespace ServerlessParking.Interfaces
 {
     public interface IParkingGarageRepository
     {
-        ParkingGarage FindByNameAndDate(string name, DateTime date);
+        Task<ParkingGarage> FindByNameAndDateAsync(string name, DateTime date);
 
-        void Add(ParkingGarage parkingGarage);
+        Task AddAsync(ParkingGarage parkingGarage);
 
-        void Update(ParkingGarage parkingGarage);
+        Task UpdateAsync(ParkingGarage parkingGarage);
 
-        void Remove(ParkingGarage parkingGarage);
+        Task RemoveAsync(ParkingGarage parkingGarage);
     }
 }

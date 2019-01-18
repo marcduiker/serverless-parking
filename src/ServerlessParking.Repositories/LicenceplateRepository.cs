@@ -1,22 +1,22 @@
 ﻿using System;
-using ServelessParking.Domain;
+using ServerlessParking.Domain;
 using ServerlessParking.Interfaces;
 
 namespace ServerlessParking.Repositories
 {
-    public class LicenceplateRepository : ILicenplateRepository
+    public class LicencePlateRepository : ILicenplateRepository
     {
-        public Licenseplate FindByNumber(string number)
+        public LicensePlate FindByNumber(string number)
         {
             throw new NotImplementedException();
         }
 
-        public void Add(Licenseplate licenseplate)
+        public void Add(LicensePlate licensePlate)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(Licenseplate licenplate)
+        public void Remove(LicensePlate licenplate)
         {
             throw new NotImplementedException();
         }

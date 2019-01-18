@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerlessParking.Applicati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerlessParking.UnitTests", "ServerlessParking.UnitTests\ServerlessParking.UnitTests.csproj", "{46414FD6-CF5F-4F0D-AE1A-68C85FF189DE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServelessParking.Domain", "ServelessParking.Domain\ServelessParking.Domain.csproj", "{BEAC3FB5-C844-48FE-8969-6B6147E2A202}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerlessParking.Domain", "ServelessParking.Domain\ServerlessParking.Domain.csproj", "{BEAC3FB5-C844-48FE-8969-6B6147E2A202}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerlessParking.Repositories", "ServerlessParking.Repositories\ServerlessParking.Repositories.csproj", "{9C61E01A-59E2-4C93-8004-6590E2ADFCA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerlessParking.Interfaces", "ServerlessParking.Interfaces\ServerlessParking.Interfaces.csproj", "{D785A459-FBBF-4CED-A22C-23C91F536AEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerlessParking.Interfaces", "ServerlessParking.Interfaces\ServerlessParking.Interfaces.csproj", "{D785A459-FBBF-4CED-A22C-23C91F536AEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

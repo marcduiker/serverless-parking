@@ -1,27 +1,28 @@
 ﻿using System;
-using ServelessParking.Domain;
+using System.Threading.Tasks;
+using ServerlessParking.Domain;
 using ServerlessParking.Interfaces;
 
 namespace ServerlessParking.Repositories
 {
     public class ParkingGarageRepository : IParkingGarageRepository
     {
-        public ParkingGarage FindByNameAndDate(string name, DateTime date)
+        public Task<ParkingGarage> FindByNameAndDateAsync(string name, DateTime date)
         {
             throw new NotImplementedException();
         }
 
-        public void Add(ParkingGarage parkingGarage)
+        public Task AddAsync(ParkingGarage parkingGarage)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(ParkingGarage parkingGarage)
+        public Task UpdateAsync(ParkingGarage parkingGarage)
         {
             throw new NotImplementedException();
         }
 
-        public void Remove(ParkingGarage parkingGarage)
+        public Task RemoveAsync(ParkingGarage parkingGarage)
         {
             throw new NotImplementedException();
         }
