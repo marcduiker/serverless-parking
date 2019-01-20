@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2011
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerlessParking.Application", "ServerlessParking\ServerlessParking.Application.csproj", "{9863E7FC-414E-4EF5-8D9E-B9020D9692E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerlessParking.Application", "ServerlessParking.Application\ServerlessParking.Application.csproj", "{9863E7FC-414E-4EF5-8D9E-B9020D9692E7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerlessParking.UnitTests", "ServerlessParking.UnitTests\ServerlessParking.UnitTests.csproj", "{46414FD6-CF5F-4F0D-AE1A-68C85FF189DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerlessParking.Application.UnitTests", "ServerlessParking.Application.UnitTests\ServerlessParking.Application.UnitTests.csproj", "{46414FD6-CF5F-4F0D-AE1A-68C85FF189DE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerlessParking.Domain", "ServelessParking.Domain\ServerlessParking.Domain.csproj", "{BEAC3FB5-C844-48FE-8969-6B6147E2A202}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerlessParking.Domain", "ServerlessParking.Domain\ServerlessParking.Domain.csproj", "{BEAC3FB5-C844-48FE-8969-6B6147E2A202}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerlessParking.Repositories", "ServerlessParking.Repositories\ServerlessParking.Repositories.csproj", "{9C61E01A-59E2-4C93-8004-6590E2ADFCA5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerlessParking.Interfaces", "ServerlessParking.Interfaces\ServerlessParking.Interfaces.csproj", "{D785A459-FBBF-4CED-A22C-23C91F536AEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerlessParking.Services", "ServerlessParking.Services\ServerlessParking.Services.csproj", "{01CD3ABE-864B-4924-8BDE-FEE97266EFB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{9C61E01A-59E2-4C93-8004-6590E2ADFCA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C61E01A-59E2-4C93-8004-6590E2ADFCA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C61E01A-59E2-4C93-8004-6590E2ADFCA5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D785A459-FBBF-4CED-A22C-23C91F536AEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D785A459-FBBF-4CED-A22C-23C91F536AEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D785A459-FBBF-4CED-A22C-23C91F536AEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D785A459-FBBF-4CED-A22C-23C91F536AEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01CD3ABE-864B-4924-8BDE-FEE97266EFB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01CD3ABE-864B-4924-8BDE-FEE97266EFB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01CD3ABE-864B-4924-8BDE-FEE97266EFB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01CD3ABE-864B-4924-8BDE-FEE97266EFB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
