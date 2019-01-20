@@ -20,12 +20,20 @@ namespace ServerlessParking.Services.ParkingConfirmation.Builders
                 string.Empty); 
         }
 
+        public static ConfirmParkingResponse BuildWithFailedNoParkingSpaceAvailable(string parkingGarageName)
+        {
+            return new ConfirmParkingResponse(
+                parkingGarageName,
+                false,
+                "No available parking spaces.");
+        }
+
         public static ConfirmParkingResponse BuildWithFailedUnknownLicensePlate(string parkingGarageName)
         {
             return new ConfirmParkingResponse(
                 parkingGarageName, 
                 false,
-                "License plate is not unkown.");
+                "License plate is unkown.");
         }
     }
 }
