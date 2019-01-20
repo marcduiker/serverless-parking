@@ -23,8 +23,4 @@
     <ProjectReference Include="..\ServerlessParking.Application\ServerlessParking.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ActivityFunctions\" />
-  </ItemGroup>
-
 </Project>

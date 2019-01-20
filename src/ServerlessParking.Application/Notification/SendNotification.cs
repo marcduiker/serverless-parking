@@ -6,16 +6,16 @@ using ServerlessParking.Services.Notification.Models;
 
 namespace ServerlessParking.Application.Notification
 {
-    public static class SendNotificationtoContact
+    public static class SendNotification
     {
         private static readonly  INotificationService Service = new NotificationService();
 
-        [FunctionName(nameof(SendNotificationtoContact))]
+        [FunctionName(nameof(SendNotification))]
         public static async Task Run(
             [ActivityTrigger] SendNotificationRequest request,
             ILogger logger)
         {
-            logger.LogInformation($"Started {nameof(SendNotificationtoContact)} with recipient: {request.Recipient}.");
+            logger.LogInformation($"Started {nameof(SendNotification)} with recipient: {request.Recipient}.");
 
             await Service.SendNotificationAsync(request);
         }
