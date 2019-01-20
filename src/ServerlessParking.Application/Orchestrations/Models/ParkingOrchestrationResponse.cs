@@ -1,9 +1,19 @@
-﻿namespace ServerlessParking.Application.Orchestrations.Models
+﻿using ServerlessParking.Domain;
+
+namespace ServerlessParking.Application.Orchestrations.Models
 {
     public sealed class ParkingOrchestrationResponse
     {
-        public string Message { get; set; }
+        public ParkingOrchestrationResponse(
+            LicensePlateRegistration licensePlateRegistration,
+            bool gateOpened)
+        {
+            LicensePlateRegistration = licensePlateRegistration;
+            GateOpened = gateOpened;
+        }
 
-        public bool GateOpen { get; set; }
+        public Domain.LicensePlateRegistration LicensePlateRegistration { get; set; }
+
+        public bool GateOpened { get; set; }
     }
 }

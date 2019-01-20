@@ -8,10 +8,10 @@ namespace ServerlessParking.Application.LicensePlate
 {
     public static class GetLicensePlate
     {
-        private static readonly ILicensePlateService Service = new LicensePlateService();
+        private static readonly ILicensePlateRegistrationService Service = new LicensePlateRegistrationService();
 
         [FunctionName(nameof(GetLicensePlate))]
-        public static async Task<Domain.LicensePlate> Run(
+        public static async Task<Domain.LicensePlateRegistration> Run(
             [ActivityTrigger] string licensePlateNumber,
             ILogger logger)
         {

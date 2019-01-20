@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using ServerlessParking.Application.ConfirmParking.Models;
 using ServerlessParking.Interfaces.Repositories;
 using ServerlessParking.Repositories;
+using ServerlessParking.Services.ParkingConfirmation.Builders;
+using ServerlessParking.Services.ParkingConfirmation.Models;
 
 namespace ServerlessParking.Services.ParkingConfirmation
 {
@@ -23,7 +24,7 @@ namespace ServerlessParking.Services.ParkingConfirmation
             var parkingGarage = await _repository.FindByNameAndDateAsync(request.ParkingGarageName, parkingDate);
             var occupySpaceResult = parkingGarage.OccupyParkingSpace(hasReservation);
 
-            return new ConfirmParkingResponse(parkingGarage.Name, occupySpaceResult);
+            return ConfirmParkingResponseBuilder.Build(parkingGarage.Name, occupySpaceResult);
         }
 
     }

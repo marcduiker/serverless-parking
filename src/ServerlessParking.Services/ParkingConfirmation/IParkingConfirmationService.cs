@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using ServerlessParking.Application.ConfirmParking.Models;
+using ServerlessParking.Services.ParkingConfirmation.Models;
 
 namespace ServerlessParking.Services.ParkingConfirmation
 {

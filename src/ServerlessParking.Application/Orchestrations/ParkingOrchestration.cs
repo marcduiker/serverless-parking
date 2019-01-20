@@ -2,11 +2,14 @@ using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using ServerlessParking.Application.Gate;
 using ServerlessParking.Application.LicensePlate;
-using ServerlessParking.Application.ConfirmParking.Models;
 using ServerlessParking.Application.Notification;
 using ServerlessParking.Application.Orchestrations.Models;
 using ServerlessParking.Domain;
 using ServerlessParking.Application.ConfirmParking;
+using ServerlessParking.Application.Orchestrations.Builders;
+using ServerlessParking.Services.Notification.Builders;
+using ServerlessParking.Services.ParkingConfirmation.Builders;
+using ServerlessParking.Services.ParkingConfirmation.Models;
 
 namespace ServerlessParking.Application.Orchestrations
 {
@@ -18,10 +21,10 @@ namespace ServerlessParking.Application.Orchestrations
         {
             var request = context.GetInput<ParkingOrchestrationRequest>();
 
-            var licensePlateResult = await context.CallActivityAsync<Domain.LicensePlate>(nameof(GetLicensePlate), request.LicensePlateNumber);
+            var licensePlateResult = await context.CallActivityAsync<Domain.LicensePlateRegistration>(nameof(GetLicensePlate), request.LicensePlateNumber);
 
             Task<ConfirmParkingResponse> confirmTask;
-            var confirmParkingRequest = new ConfirmParkingRequest(request.ParkingGarageName, licensePlateResult);
+            var confirmParkingRequest = ConfirmParkingRequestBuilder.Build(request.ParkingGarageName, licensePlateResult);
 
             switch (licensePlateResult.Type)
             {
@@ -32,24 +35,34 @@ namespace ServerlessParking.Application.Orchestrations
                     confirmTask = context.CallActivityAsync<ConfirmParkingResponse>(nameof(ConfirmParkingForEmployee), confirmParkingRequest);
                     break;
                 default:
-                    var unknownLicencePlateResponse = new ConfirmParkingResponse(request.ParkingGarageName, false);
+                    var unknownLicencePlateResponse =  ConfirmParkingResponseBuilder.BuildWithFailedUnknownLicensePlate(request.ParkingGarageName);
                     confirmTask = Task.FromResult(unknownLicencePlateResponse);
                     break;
             }
 
             var parkingConfirmationResponse = await confirmTask;
+
             if (parkingConfirmationResponse.IsSuccess)
             {
-                // TODO create request and do something with the result
-                await context.CallActivityAsync<string>(nameof(OpenGate), parkingConfirmationResponse);
+                await context.CallActivityAsync(nameof(OpenGate), confirmTask.Result.ParkingGarageName);
             }
             else
             {
-                // TODO create request and do something with the result
-                await context.CallActivityAsync<string>(nameof(SendNotificationtoContact), confirmParkingRequest);
+                await context.CallActivityAsync(nameof(DisplayMessage), confirmTask.Result.Message);
             }
 
-            var parkingOrchestrationResponse = new ParkingOrchestrationResponse();
+            if (licensePlateResult.Type == LicensePlateType.Appointment)
+            {
+                var sendNotificationRequest = SendNotificationRequestBuilder.BuildWithAppointmentHasArrived(
+                    licensePlateResult.ContactPerson,
+                    licensePlateResult.Name);
+                await context.CallActivityAsync(nameof(SendNotificationtoContact), sendNotificationRequest);
+            }
+
+
+            var parkingOrchestrationResponse = ParkingOrchestrationResponseBuilder.Build(
+                licensePlateResult, 
+                confirmTask.Result.IsSuccess);
 
             return parkingOrchestrationResponse;
         }

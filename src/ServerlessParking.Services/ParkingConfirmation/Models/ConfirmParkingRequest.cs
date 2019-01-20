@@ -1,15 +1,15 @@
-﻿namespace ServerlessParking.Application.ConfirmParking.Models
+﻿namespace ServerlessParking.Services.ParkingConfirmation.Models
 {
     public class ConfirmParkingRequest
     {
-        public ConfirmParkingRequest(string parkingGarageName, Domain.LicensePlate licensePlate)
+        public ConfirmParkingRequest(string parkingGarageName, Domain.LicensePlateRegistration licensePlateRegistration)
         {
             ParkingGarageName = parkingGarageName;
-            LicensePlate = licensePlate;
+            LicensePlateRegistration = licensePlateRegistration;
         }
 
         public string ParkingGarageName { get; set; }
 
-        public Domain.LicensePlate LicensePlate { get; set; }
+        public Domain.LicensePlateRegistration LicensePlateRegistration { get; set; }
     }
 }

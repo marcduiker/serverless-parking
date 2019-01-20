@@ -8,7 +8,7 @@
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.24" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ServelessParking.Domain\ServerlessParking.Domain.csproj" />
+    <ProjectReference Include="..\ServerlessParking.Domain\ServerlessParking.Domain.csproj" />
     <ProjectReference Include="..\ServerlessParking.Services\ServerlessParking.Services.csproj" />
   </ItemGroup>
   <ItemGroup>
