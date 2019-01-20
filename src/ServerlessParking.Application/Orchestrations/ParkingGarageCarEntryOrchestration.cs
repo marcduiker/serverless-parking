@@ -1,5 +1,7 @@
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Extensions.Logging;
 using ServerlessParking.Application.Gate;
 using ServerlessParking.Application.LicensePlate;
 using ServerlessParking.Application.Notification;
@@ -10,18 +12,25 @@ using ServerlessParking.Application.Orchestrations.Builders;
 using ServerlessParking.Services.Notification.Builders;
 using ServerlessParking.Services.ParkingConfirmation.Builders;
 using ServerlessParking.Services.ParkingConfirmation.Models;
+using ServerlessParking.Services.ParkingGarageGate.Builders;
 
 namespace ServerlessParking.Application.Orchestrations
 {
-    public static class ParkingOrchestration
+    public static class ParkingGarageCarEntryOrchestration
     {
-        [FunctionName(nameof(ParkingOrchestration))]
+        [FunctionName(nameof(ParkingGarageCarEntryOrchestration))]
         public static async Task<ParkingOrchestrationResponse> RunOrchestrator(
-            [OrchestrationTrigger] DurableOrchestrationContextBase context)
+            [OrchestrationTrigger] DurableOrchestrationContextBase context,
+            ILogger logger)
         {
+            if (!context.IsReplaying)
+            {
+                logger.LogInformation($"Started {nameof(ParkingGarageCarEntryOrchestration)} with InstanceId: {context.InstanceId}.");
+            }
+
             var request = context.GetInput<ParkingOrchestrationRequest>();
 
-            var licensePlateResult = await context.CallActivityAsync<Domain.LicensePlateRegistration>(nameof(GetLicensePlate), request.LicensePlateNumber);
+            var licensePlateResult = await context.CallActivityAsync<LicensePlateRegistration>(nameof(GetLicensePlateRegistration), request.LicensePlateNumber);
 
             Task<ConfirmParkingResponse> confirmTask;
             var confirmParkingRequest = ConfirmParkingRequestBuilder.Build(request.ParkingGarageName, licensePlateResult);
@@ -48,7 +57,10 @@ namespace ServerlessParking.Application.Orchestrations
             }
             else
             {
-                await context.CallActivityAsync(nameof(DisplayMessage), confirmTask.Result.Message);
+                var displayMessageRequest = DisplayMessageRequestBuilder.Build(
+                    confirmTask.Result.ParkingGarageName, 
+                    confirmTask.Result.Message);
+                await context.CallActivityAsync(nameof(DisplayMessage), displayMessageRequest);
             }
 
             if (licensePlateResult.Type == LicensePlateType.Appointment)

@@ -1,10 +1,11 @@
 ﻿using System.Threading.Tasks;
+using ServerlessParking.Services.ParkingGarageGate.Models;
 
 namespace ServerlessParking.Services.ParkingGarageGate
 {
     public class ParkingGarageGateService : IParkingGarageGateService
     {
-        public async Task DisplayMessage(string message)
+        public async Task DisplayMessage(DisplayMessageRequest request)
         {
             // Simulate successfull sending of a message to the gate.
             await Task.CompletedTask;

@@ -12,7 +12,7 @@ namespace ServerlessParking.Application.Orchestrations.Models
             GateOpened = gateOpened;
         }
 
-        public Domain.LicensePlateRegistration LicensePlateRegistration { get; set; }
+        public LicensePlateRegistration LicensePlateRegistration { get; set; }
 
         public bool GateOpened { get; set; }
     }

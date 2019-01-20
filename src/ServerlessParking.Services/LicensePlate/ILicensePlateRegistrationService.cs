@@ -1,9 +1,10 @@
 ﻿using System.Threading.Tasks;
+using ServerlessParking.Domain;
 
 namespace ServerlessParking.Services.LicensePlate
 {
     public interface ILicensePlateRegistrationService
     {
-        Task<Domain.LicensePlateRegistration> GetLicensePlateAsync(string licensePlateNumber);
+        Task<LicensePlateRegistration> GetAsync(string licensePlateNumber);
     }
 }

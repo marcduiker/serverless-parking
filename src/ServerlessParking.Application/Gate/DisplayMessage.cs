@@ -2,6 +2,7 @@
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using ServerlessParking.Services.ParkingGarageGate;
+using ServerlessParking.Services.ParkingGarageGate.Models;
 
 namespace ServerlessParking.Application.Gate
 {
@@ -11,12 +12,12 @@ namespace ServerlessParking.Application.Gate
 
         [FunctionName(nameof(DisplayMessage))]
         public static async Task Run(
-            [ActivityTrigger] string message,
+            [ActivityTrigger] DisplayMessageRequest request,
             ILogger logger)
         {
             logger.LogInformation($"Started {nameof(DisplayMessage)}.");
 
-            await Service.DisplayMessage(message);
+            await Service.DisplayMessage(request);
         }
     }
 }

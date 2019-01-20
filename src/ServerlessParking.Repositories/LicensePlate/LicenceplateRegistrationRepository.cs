@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Threading.Tasks;
+using ServerlessParking.Domain;
 
 namespace ServerlessParking.Repositories.LicensePlate
 {
     public class LicencePlateRegistrationRepository : ILicensePlateRegistrationRepository
     {
-        public Task<Domain.LicensePlateRegistration> GetByNumberAsync(string licensePlateNumber)
+        public Task<LicensePlateRegistration> GetByNumberAsync(string licensePlateNumber)
         {
             throw new NotImplementedException();
         }
 
-        public Task AddAsync(Domain.LicensePlateRegistration licensePlateRegistration)
+        public Task AddAsync(LicensePlateRegistration licensePlateRegistration)
         {
             throw new NotImplementedException();
         }
 
-        public Task RemoveAsync(Domain.LicensePlateRegistration licenplate)
+        public Task RemoveAsync(LicensePlateRegistration licenplate)
         {
             throw new NotImplementedException();
         }

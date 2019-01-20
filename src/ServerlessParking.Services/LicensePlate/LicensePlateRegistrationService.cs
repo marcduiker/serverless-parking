@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using ServerlessParking.Domain;
 using ServerlessParking.Repositories.LicensePlate;
 
 namespace ServerlessParking.Services.LicensePlate
@@ -12,7 +13,7 @@ namespace ServerlessParking.Services.LicensePlate
             _repository = repository ?? new LicencePlateRegistrationRepository();
         }
 
-        public async Task<Domain.LicensePlateRegistration> GetLicensePlateAsync(string licensePlateNumber)
+        public async Task<LicensePlateRegistration> GetAsync(string licensePlateNumber)
         {
             var licensePlate = await _repository.GetByNumberAsync(licensePlateNumber);
 

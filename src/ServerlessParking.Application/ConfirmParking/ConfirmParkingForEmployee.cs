@@ -14,9 +14,9 @@ namespace ServerlessParking.Application.ConfirmParking
         [FunctionName(nameof(ConfirmParkingForEmployee))]
         public static async Task<ConfirmParkingResponse> Run(
             [ActivityTrigger] ConfirmParkingRequest request,
-            ILogger log)
+            ILogger logger)
         {
-            log.LogInformation(
+            logger.LogInformation(
                 $"Started {nameof(ConfirmParkingForEmployee)} for licensePlate {request.LicensePlateRegistration.Number}.");
 
             var response = await Service.ConfirmParkingAsync(request, DateTime.Today, false);

@@ -6,18 +6,18 @@ using ServerlessParking.Services.LicensePlate;
 
 namespace ServerlessParking.Application.LicensePlate
 {
-    public static class GetLicensePlate
+    public static class GetLicensePlateRegistration
     {
         private static readonly ILicensePlateRegistrationService Service = new LicensePlateRegistrationService();
 
-        [FunctionName(nameof(GetLicensePlate))]
+        [FunctionName(nameof(GetLicensePlateRegistration))]
         public static async Task<Domain.LicensePlateRegistration> Run(
             [ActivityTrigger] string licensePlateNumber,
             ILogger logger)
         {
-            logger.LogInformation($"Started {nameof(GetLicensePlate)} with {licensePlateNumber}.");
+            logger.LogInformation($"Started {nameof(GetLicensePlateRegistration)} with {licensePlateNumber}.");
 
-            var licenseplate = await Service.GetLicensePlateAsync(licensePlateNumber);
+            var licenseplate = await Service.GetAsync(licensePlateNumber);
 
             return licenseplate;
         }
