@@ -33,7 +33,7 @@ namespace ServerlessParking.Application.UnitTests.Orchestrations
         }
 
         [Fact]
-        public async Task GivenLicensePlateBelongsToAppointment_WhenOrchestrationIsStarted_ThenGateOpenedShouldBeTrue()
+        public async Task GivenLicensePlateBelongsToAppointmentAndParkingSpaceIsAvailable_WhenOrchestrationIsStarted_ThenGateOpenedShouldBeTrue()
         {
             // Arrange
             var context = CreateFakeContextForAppointment();
@@ -47,7 +47,7 @@ namespace ServerlessParking.Application.UnitTests.Orchestrations
         }
 
         [Fact]
-        public async Task GivenLicensePlateBelongsToEmployee_WhenOrchestrationIsStarted_ThenGateOpenedShouldBeTrue()
+        public async Task GivenLicensePlateBelongsToEmployeeAndParkingSpaceIsAvailable_WhenOrchestrationIsStarted_ThenGateOpenedShouldBeTrue()
         {
             // Arrange
             var context = CreateFakeContextForEmployee();
@@ -58,6 +58,20 @@ namespace ServerlessParking.Application.UnitTests.Orchestrations
 
             // Assert
             result.GateOpened.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task GivenLicensePlateBelongsToEmployeeAndParkingSpaceIsNotAvailable_WhenOrchestrationIsStarted_ThenGateOpenedShouldBeFalse()
+        {
+            // Arrange
+            var context = CreateFakeContextForEmployeeNoParkingSpaceAvailable();
+            var logger = A.Fake<ILogger>();
+
+            // Act
+            var result = await ParkingGarageCarEntryOrchestration.Run(context, logger);
+
+            // Assert
+            result.GateOpened.Should().BeFalse();
         }
 
         private DurableOrchestrationContextBase CreateFakeContextForUnkownLicensePlate()
@@ -153,18 +167,53 @@ namespace ServerlessParking.Application.UnitTests.Orchestrations
                     Type = LicensePlateType.Employee
                 }));
 
-            // Configure ConfirmParkingForAppointment activity
+            // Configure ConfirmParkingForEmployee activity
             A.CallTo(() => context.CallActivityAsync<ConfirmParkingResponse>(
                     nameof(ConfirmParkingForEmployee),
                     A<ConfirmParkingRequest>._))
                 .Returns(Task.FromResult(
                     ConfirmParkingResponseBuilder.BuildWithSuccess(parkingGarageName)));
 
-            // Configure ConfirmParkingForAppointment activity
+            // Configure OpenGate activity
             A.CallTo(() => context.CallActivityAsync(
                     nameof(OpenGate),
                     A<string>._))
                 .Returns(Task.CompletedTask);
+
+            return context;
+        }
+
+        private DurableOrchestrationContextBase CreateFakeContextForEmployeeNoParkingSpaceAvailable()
+        {
+            var context = A.Fake<DurableOrchestrationContextBase>();
+            const string licensePlateNumber = "ABC-123";
+            const string parkingGarageName = "Parking Garage 1";
+
+            // Configure input
+            A.CallTo(() => context.GetInput<ParkingOrchestrationRequest>())
+                .Returns(new ParkingOrchestrationRequest
+                {
+                    ParkingGarageName = parkingGarageName,
+                    LicensePlateNumber = licensePlateNumber
+                });
+
+            // Configure GetLicensePlateRegistration activity
+            A.CallTo(() => context.CallActivityAsync<LicensePlateRegistration>(
+                    nameof(GetLicensePlateRegistration),
+                    A<string>._))
+                .Returns(Task.FromResult(new LicensePlateRegistration
+                {
+                    Number = licensePlateNumber,
+                    Name = "E.M. Ployee",
+                    Type = LicensePlateType.Employee
+                }));
+
+            // Configure ConfirmParkingForEmployee activity
+            A.CallTo(() => context.CallActivityAsync<ConfirmParkingResponse>(
+                    nameof(ConfirmParkingForEmployee),
+                    A<ConfirmParkingRequest>._))
+                .Returns(Task.FromResult(
+                    ConfirmParkingResponseBuilder.BuildWithFailedNoParkingSpaceAvailable(parkingGarageName)));
 
             return context;
         }
